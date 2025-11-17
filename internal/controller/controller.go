@@ -179,7 +179,7 @@ var titleStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("#7D56
 func (m Model) View() string {
 	helpView := m.help.View(m.keys)
 	if m.form.State == huh.StateCompleted {
-		return titleStyle.Render(m.Title) + "\nPomodoro Started!\n" + m.Timer.View() + "\n\n" + m.progress.View() + "\n\n" + helpView
+		return titleStyle.Render(m.Title) + "\n\tTimer Started!\n\t" + m.Timer.View() + "\n\n" + m.progress.View() + "\n\n" + helpView
 	}
 	return m.form.View() + "\n" + helpView
 }
