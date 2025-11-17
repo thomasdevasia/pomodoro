@@ -12,6 +12,7 @@ import (
 	"github.com/charmbracelet/bubbles/timer"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/huh"
+	"github.com/charmbracelet/lipgloss"
 )
 
 type Model struct {
@@ -173,10 +174,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
+var titleStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("#7D56F4")).Padding(2, 5)
+
 func (m Model) View() string {
 	helpView := m.help.View(m.keys)
 	if m.form.State == huh.StateCompleted {
-		return "Pomodoro Started!\n" + m.Timer.View() + "\n\n" + m.progress.View() + "\n\n" + helpView
+		return titleStyle.Render(m.Title) + "\nPomodoro Started!\n" + m.Timer.View() + "\n\n" + m.progress.View() + "\n\n" + helpView
 	}
 	return m.form.View() + "\n" + helpView
 }
