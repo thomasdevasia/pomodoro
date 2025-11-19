@@ -174,12 +174,15 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-var titleStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("#7D56F4")).Padding(2, 5)
+var (
+	titleStyle  = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("#7D56F4")).Padding(2, 12)
+	middleStyle = lipgloss.NewStyle().Padding(1, 3)
+)
 
 func (m Model) View() string {
 	helpView := m.help.View(m.keys)
 	if m.form.State == huh.StateCompleted {
-		return titleStyle.Render(m.Title) + "\n\tTimer Started!\n\t" + m.Timer.View() + "\n\n" + m.progress.View() + "\n\n" + helpView
+		return titleStyle.Render(m.Title) + middleStyle.Render("\nTimer Started!\n") + middleStyle.Render(m.Timer.View()) + "\n\n" + middleStyle.Render(m.progress.View()) + "\n\n" + middleStyle.Render(helpView)
 	}
 	return m.form.View() + "\n" + helpView
 }
